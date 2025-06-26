@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/authOptions";
 import SkuListClient from "./SkuListClient";
 import StoreListClient from "./StoreListClient";
 import SkuCrudClient from "./SkuCrudClient";
