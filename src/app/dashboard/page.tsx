@@ -1,9 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { authOptions } from "../api/auth/authOptions";
-import dynamic from "next/dynamic";
-
-const AnalyticsDashboardClient = dynamic(() => import("./AnalyticsDashboardClient"), { ssr: false });
+import AnalyticsDashboardClient from "./AnalyticsDashboardClient";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
