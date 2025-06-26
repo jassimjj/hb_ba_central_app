@@ -11,6 +11,7 @@ function StatCard({ title, value, color }: { title: string; value: number; color
 }
 
 export default function AnalyticsDashboardClient() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stats, setStats] = useState<any>(null);
   useEffect(() => {
     fetch("/api/analytics").then(res => res.json()).then(setStats);

@@ -7,6 +7,7 @@ import GlobalFavoritesManager from "./GlobalFavoritesManager";
 import { useEffect, useState } from "react";
 
 function AuditLogTable() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [logs, setLogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
