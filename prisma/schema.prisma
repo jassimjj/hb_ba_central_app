@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma" // Use default output for compatibility
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role
+  stores    Store[]  @relation("UserStores")
+  favorites FavoriteSku[]
+  alerts    Alert[]
+  auditLogs AuditLog[]
+}
+
+enum Role {
+  ADMIN
+  BEAUTY_ADVISOR
+}
+
+model Store {
+  id        String   @id @default(cuid())
+  name      String
+  location  String
+  users     User[]   @relation("UserStores")
+  inventory Inventory[]
+}
+
+model Sku {
+  id          String   @id @default(cuid())
+  name        String
+  brand       String
+  chronicOOS  Boolean  @default(false)
+  inventory   Inventory[]
+  favorites   FavoriteSku[]
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  store     Store   @relation(fields: [storeId], references: [id])
+  storeId   String
+  sku       Sku     @relation(fields: [skuId], references: [id])
+  skuId     String
+  status    StockStatus
+  updatedAt DateTime @updatedAt
+
+  @@unique([storeId, skuId])
+}
+
+enum StockStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+  LOW_STOCK
+}
+
+model FavoriteSku {
+  id      String @id @default(cuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  sku     Sku    @relation(fields: [skuId], references: [id])
+  skuId   String
+}
+
+model Alert {
+  id        String   @id @default(cuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  message   String
+  type      String   // e.g. 'OOS', 'LOW_STOCK', 'INFO', etc.
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  action    String   // e.g. 'UPDATE_INVENTORY', 'CREATE_USER', etc.
+  target    String   // e.g. 'Inventory', 'User', 'Store', etc.
+  targetId  String?  // ID of the affected record
+  message   String   // Human-readable description
+  createdAt DateTime @default(now())
+}
