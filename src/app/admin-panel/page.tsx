@@ -14,7 +14,12 @@ export default async function AdminPanelPage() {
 
   // Fetch all stores, SKUs, and users
   const stores = await prisma.store.findMany({
-    include: { inventory: { include: { sku: true } } },
+    select: {
+      id: true,
+      name: true,
+      location: true,
+      inventory: { include: { sku: true } }
+    },
     orderBy: { name: "asc" },
   });
   const skus = await prisma.sku.findMany({ orderBy: { name: "asc" } });
