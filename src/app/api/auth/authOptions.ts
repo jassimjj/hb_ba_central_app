@@ -30,7 +30,7 @@ export const authOptions: AuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
         token.role = user.role;
         token.id = user.id;
