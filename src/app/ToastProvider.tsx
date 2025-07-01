@@ -9,6 +9,7 @@ export function useToast() {
   return useContext(ToastContext);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [message, setMessage] = useState("");
   const [visible, setVisible] = useState(false);

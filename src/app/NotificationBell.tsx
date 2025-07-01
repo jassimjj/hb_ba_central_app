@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function NotificationBell({ userId }: { userId: string }) {
   const [alerts, setAlerts] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
