@@ -65,8 +65,8 @@ enum StockStatus {
 
 model FavoriteSku {
   id      String @id @default(cuid())
-  user    User   @relation(fields: [userId], references: [id])
-  userId  String
+  user    User?  @relation(fields: [userId], references: [id])
+  userId  String?
   sku     Sku    @relation(fields: [skuId], references: [id])
   skuId   String
 }
