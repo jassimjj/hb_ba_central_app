@@ -2,7 +2,7 @@
 import { createContext, useContext, useState } from "react";
 
 const ToastContext = createContext({
-  show: (msg: string) => {},
+  show: (_msg: string) => {},
 });
 
 export function useToast() {
