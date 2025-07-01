@@ -14,7 +14,7 @@ export default function GlobalFavoritesManager({ skus }: GlobalFavoritesManagerP
   useEffect(() => {
     fetch("/api/global-favorites")
       .then(res => res.json())
-      .then(res => setFavoriteIds(res.favorites.map((f: any) => f.skuId)));
+      .then(res => setFavoriteIds(res.favorites.map((f: { skuId: string }) => f.skuId)));
   }, []);
 
   const handleToggle = (skuId: string) => {

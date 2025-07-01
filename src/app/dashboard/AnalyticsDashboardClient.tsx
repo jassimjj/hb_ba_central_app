@@ -11,7 +11,9 @@ function StatCard({ title, value, color }: { title: string; value: number; color
 }
 
 export default function AnalyticsDashboardClient() {
-  const [stats, setStats] = useState<{ storeStats: any[]; chronicOOS: any[] } | null>(null);
+  type StoreStat = { storeId: string; storeName: string; oos: number; low: number; total: number };
+  type ChronicOOS = { id: string; name: string };
+  const [stats, setStats] = useState<{ storeStats: StoreStat[]; chronicOOS: ChronicOOS[] } | null>(null);
   useEffect(() => {
     fetch("/api/analytics").then(res => res.json()).then(setStats);
   }, []);
@@ -19,7 +21,7 @@ export default function AnalyticsDashboardClient() {
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap gap-4 mb-6">
-        {stats.storeStats.map((s: any) => (
+        {stats.storeStats.map((s) => (
           <div key={s.storeId} className="flex-1 min-w-[200px]">
             <div className="font-semibold text-pink-700 mb-1">{s.storeName}</div>
             <div className="flex gap-2">
@@ -36,7 +38,7 @@ export default function AnalyticsDashboardClient() {
           {stats.chronicOOS.length === 0 ? (
             <li className="text-gray-500">None</li>
           ) : (
-            stats.chronicOOS.map((sku: any) => (
+            stats.chronicOOS.map((sku) => (
               <li key={sku.id} className="px-2 py-1 bg-red-100 text-red-600 rounded text-xs">{sku.name}</li>
             ))
           )}

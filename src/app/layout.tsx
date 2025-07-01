@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ToastProvider } from "./ToastProvider";
+import ToastProvider from "./ToastProvider";
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 
