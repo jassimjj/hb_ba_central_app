@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function NotificationBell({ userId }: { userId: string }) {
-  const [alerts, setAlerts] = useState<any[]>([]);
+  const [alerts, setAlerts] = useState<{ id: string; message: string; read: boolean; createdAt: string }[]>([]);
   const [open, setOpen] = useState(false);
   const bellRef = useRef<HTMLButtonElement>(null);
 

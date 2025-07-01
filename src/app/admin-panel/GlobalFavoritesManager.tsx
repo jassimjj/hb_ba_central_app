@@ -8,7 +8,6 @@ type GlobalFavoritesManagerProps = {
 };
 
 export default function GlobalFavoritesManager({ skus }: GlobalFavoritesManagerProps) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 

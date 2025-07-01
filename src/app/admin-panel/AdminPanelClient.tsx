@@ -7,8 +7,7 @@ import GlobalFavoritesManager from "./GlobalFavoritesManager";
 import { useEffect, useState } from "react";
 
 function AuditLogTable() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [logs, setLogs] = useState<any[]>([]);
+  const [logs, setLogs] = useState<{ id: string; user?: { name?: string }; action: string; target: string; targetId?: string; message: string; createdAt: string }[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,7 +37,7 @@ function AuditLogTable() {
             {loading ? (
               <tr><td colSpan={5} className="text-center p-4">Loading...</td></tr>
             ) : (
-              logs.map((log: any) => (
+              logs.map((log) => (
                 <tr key={log.id}>
                   <td className="p-2 border">{new Date(log.createdAt).toLocaleString()}</td>
                   <td className="p-2 border">{log.user?.name || "System"}</td>
