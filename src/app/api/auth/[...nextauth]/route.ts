@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
-import { compare } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -24,7 +23,7 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       // Attach user role to session
       if (session.user) {
         session.user.role = token.role;

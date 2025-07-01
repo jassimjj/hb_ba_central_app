@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   // OOS/Low Stock counts by store
   const stores = await prisma.store.findMany({
     include: {
