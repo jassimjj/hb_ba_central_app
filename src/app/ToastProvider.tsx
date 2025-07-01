@@ -1,8 +1,10 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-const ToastContext = createContext({
-  show: (_msg: string) => {},
+const ToastContext = createContext<{
+  show: (msg: string) => void;
+}>({
+  show: () => {},
 });
 
 export function useToast() {
