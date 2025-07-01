@@ -22,7 +22,15 @@ export default async function AdminPanelPage() {
     },
     orderBy: { name: "asc" },
   });
-  const skus = await prisma.sku.findMany({ orderBy: { name: "asc" } });
+  const skus = await prisma.sku.findMany({ 
+    select: {
+      id: true,
+      name: true,
+      brand: true,
+      chronicOOS: true
+    },
+    orderBy: { name: "asc" } 
+  });
   const users = await prisma.user.findMany({
     include: { stores: true },
     orderBy: { name: "asc" },
