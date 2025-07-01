@@ -4,7 +4,6 @@ import "./globals.css";
 import { ToastProvider } from "./ToastProvider";
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useSession } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
