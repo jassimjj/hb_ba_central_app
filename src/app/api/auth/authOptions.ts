@@ -30,10 +30,18 @@ export const authOptions: AuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user }: { token: any; user?: any }) {
-      if (user) {
-        token.role = user.role;
-        token.id = user.id;
+    async jwt({ token, user }: { token: unknown; user?: unknown }) {
+      if (
+        user &&
+        typeof user === 'object' &&
+        user !== null &&
+        'role' in user &&
+        'id' in user &&
+        typeof token === 'object' &&
+        token !== null
+      ) {
+        (token as any).role = (user as any).role;
+        (token as any).id = (user as any).id;
       }
       return token;
     },
