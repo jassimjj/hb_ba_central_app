@@ -64,7 +64,7 @@ type StoreWithInventory = {
 export default function AdminPanelClient({ stores, skus, users }: { 
   stores: StoreWithInventory[]; 
   skus: { id: string; name: string; brand: string; chronicOOS: boolean }[]; 
-  users: { id: string; name: string }[] 
+  users: { id: string; name: string; email: string; role: string; stores: { id: string; name: string }[] }[] 
 }) {
   // Create stores data for StoreListClient (only needs id, name, location)
   const storesForList = stores.map(store => ({

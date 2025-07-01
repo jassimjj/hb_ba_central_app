@@ -32,7 +32,18 @@ export default async function AdminPanelPage() {
     orderBy: { name: "asc" } 
   });
   const users = await prisma.user.findMany({
-    include: { stores: true },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      stores: {
+        select: {
+          id: true,
+          name: true
+        }
+      }
+    },
     orderBy: { name: "asc" },
   });
 
