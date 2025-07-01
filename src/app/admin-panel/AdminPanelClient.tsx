@@ -54,19 +54,43 @@ function AuditLogTable() {
   );
 }
 
-export default function AdminPanelClient({ stores, skus, users }: { stores: { id: string; name: string }[]; skus: { id: string; name: string }[]; users: { id: string; name: string }[] }) {
+type StoreWithInventory = {
+  id: string;
+  name: string;
+  location: string;
+  inventory: { skuId: string }[];
+};
+
+export default function AdminPanelClient({ stores, skus, users }: { 
+  stores: StoreWithInventory[]; 
+  skus: { id: string; name: string }[]; 
+  users: { id: string; name: string }[] 
+}) {
+  // Create stores data for StoreListClient (only needs id, name, location)
+  const storesForList = stores.map(store => ({
+    id: store.id,
+    name: store.name,
+    location: store.location
+  }));
+
+  // Create stores data for AssortmentManager (needs id, name, inventory)
+  const storesForAssortment = stores.map(store => ({
+    id: store.id,
+    name: store.name,
+    inventory: store.inventory
+  }));
   return (
     <div className="min-h-screen bg-pink-50 flex flex-col items-center py-8 px-2">
       <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md w-full max-w-4xl border border-pink-200 overflow-x-auto">
         <h1 className="text-3xl font-bold mb-6 text-pink-600 text-center">Admin Panel</h1>
         <h2 className="text-xl font-semibold mb-2 text-pink-700">Stores</h2>
-        <StoreListClient stores={stores} />
+        <StoreListClient stores={storesForList} />
         <h2 className="text-xl font-semibold mb-2 text-pink-700">SKUs</h2>
         <SkuCrudClient skus={skus} />
         <h2 className="text-xl font-semibold mb-2 text-pink-700">Users</h2>
-        <UserListClient initialUsers={users} stores={stores} />
+        <UserListClient initialUsers={users} stores={storesForList} />
         <h2 className="text-xl font-semibold mb-2 text-pink-700">Assortment</h2>
-        <AssortmentManager stores={stores} skus={skus} />
+        <AssortmentManager stores={storesForAssortment} skus={skus} />
         <h2 className="text-xl font-semibold mb-2 text-pink-700">Global Favorites</h2>
         <GlobalFavoritesManager skus={skus} />
         <AuditLogTable />
