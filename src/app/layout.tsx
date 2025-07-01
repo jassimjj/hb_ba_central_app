@@ -26,7 +26,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: session } = useSession();
   const t = useTranslations();
   const locale = useLocale();
   const isRTL = locale === 'ar';

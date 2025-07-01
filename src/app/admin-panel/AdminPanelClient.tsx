@@ -54,7 +54,7 @@ function AuditLogTable() {
   );
 }
 
-export default function AdminPanelClient({ stores, skus, users }: { stores: any[]; skus: any[]; users: any[] }) {
+export default function AdminPanelClient({ stores, skus, users }: { stores: { id: string; name: string }[]; skus: { id: string; name: string }[]; users: { id: string; name: string }[] }) {
   return (
     <div className="min-h-screen bg-pink-50 flex flex-col items-center py-8 px-2">
       <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md w-full max-w-4xl border border-pink-200 overflow-x-auto">
